@@ -1,10 +1,15 @@
-
 pipeline {
     agent {
         node {
             label 'maven'
         }
     }
+
+
+options {
+   cleanWs()                
+}
+
 
 environment {
     JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
