@@ -1,33 +1,28 @@
+
 pipeline {
-    agent {
-        node {
-            label 'maven'
-        }
+    agent { label 'maven' }
+
+    environment {
+        PATH = "/opt/apache-maven-3.9.11/bin:$PATH"
     }
 
-environment {
-    JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
-    PATH = "${JAVA_HOME}/bin:/opt/apache-maven-3.9.11/bin:${PATH}"
-}
-
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
                 sh 'mvn clean deploy'
             }
         }
-    }
 
-    stage('SonarQube analysis') {
-    environment{
-        scannerHome = tool 'SonarQube-Scanner01'
+        stage('SonarQube Analysis') {
+            environment {
+            scannerHome = tool 'SonarQube-Scanner01'
+            }
+            steps {
+                withSonarQubeEnv('SonarQube-Server01') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+            }
+        }
     }
-    steps{
-    withSonarQubeEnv('SonarQube-Server01') { 
-      sh "${scannerHome}/bin/sonar-scanner"
-    }
-    }
-
-  }
-
 }
+
