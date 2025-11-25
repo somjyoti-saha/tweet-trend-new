@@ -17,4 +17,17 @@ environment {
             }
         }
     }
+
+    stage('SonarQube analysis') {
+    environment{
+        scannerHome = tool 'SonarQube-Scanner01'
+    }
+    steps{
+    withSonarQubeEnv('SonarQube-Server01') { 
+      sh "${scannerHome}/bin/sonar-scanner"
+    }
+    }
+
+  }
+
 }
