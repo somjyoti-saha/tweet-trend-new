@@ -13,6 +13,12 @@ pipeline {
             }
         }
 
+        stage('Test') {
+            steps {
+                sh 'mvn surefire-report:report'
+            }
+        }
+
         stage('SonarQube Analysis') {
             environment {
             scannerHome = tool 'SonarQube-Scanner01'
