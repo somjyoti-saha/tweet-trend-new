@@ -117,8 +117,8 @@
 
 	<distributionManagement>
 		<repository>
-			<id>dev</id>
-			<url>file://jarstaging</url>
+			<id>test-devops-artifacts</id>
+			<url>https://test-882961642803.d.codeartifact.ap-south-1.amazonaws.com/maven/devops-artifacts</url>
 		</repository>
 	</distributionManagement>
 
