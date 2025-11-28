@@ -21,6 +21,7 @@ pipeline {
 
         stage('Jar Published') {
             steps {
+	      withCredentials([aws(accessKeyVariable: 'AKIA43FE5OUZ7BD66XHH', secretKeyVariable: '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', credentialsId: 'aws-cred')])
                 script{
                     echo '<--------------- Jar Publish Started --------------->'
                     // 1. Get AWS CodeArtifact Auth Token
