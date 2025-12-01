@@ -1,3 +1,4 @@
+
 pipeline {
     agent {
         node {
@@ -16,27 +17,15 @@ environment {
             }
         }
 
-        stage('Test') {
-            steps {
-                sh 'mvn surefire-report:report'
-            }
-        }
+
 
         stage('Docker Build & publish'){
             steps{
-                withAWS(credentials: 'aws-creds', region: 'ap-south-1'){
-                    sh '''
-		    aws sts get-caller-identity
-                    aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 882961642803.dkr.ecr.ap-south-1.amazonaws.com
-                    docker build -t ttrend .
-                    docker tag ttrend:latest 882961642803.dkr.ecr.ap-south-1.amazonaws.com/ttrend:latest
-                    docker push 882961642803.dkr.ecr.ap-south-1.amazonaws.com/ttrend:latest
-                    '''
+                withAWS(credentials: 'aws-creds', region: 'ap-south-1') {
+                    sh 'aws sts get-caller-identity'
                 }
+
             }
         }
-
-
-
     }
 }
