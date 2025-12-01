@@ -26,6 +26,7 @@ environment {
             steps{
                 withAWS(credentials: 'aws-creds', region: 'ap-south-1'){
                     sh '''
+		    aws sts get-caller-identity
                     aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 882961642803.dkr.ecr.ap-south-1.amazonaws.com
                     docker build -t ttrend .
                     docker tag ttrend:latest 882961642803.dkr.ecr.ap-south-1.amazonaws.com/ttrend:latest
