@@ -24,14 +24,18 @@ environment {
 
         stage('Docker Build & publish'){
             steps{
-                sh '''
-                aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 882961642803.dkr.ecr.ap-south-1.amazonaws.com
-                docker build -t ttrend .
-                docker tag ttrend:latest 882961642803.dkr.ecr.ap-south-1.amazonaws.com/ttrend:latest
-                docker push 882961642803.dkr.ecr.ap-south-1.amazonaws.com/ttrend:latest
-                '''
+                withAWS(credentials: 'aws-creds', region: "${AWS_REGION}"){
+                    sh '''
+                    aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 882961642803.dkr.ecr.ap-south-1.amazonaws.com
+                    docker build -t ttrend .
+                    docker tag ttrend:latest 882961642803.dkr.ecr.ap-south-1.amazonaws.com/ttrend:latest
+                    docker push 882961642803.dkr.ecr.ap-south-1.amazonaws.com/ttrend:latest
+                    '''
+                }
             }
-
         }
+
+
+
     }
 }
