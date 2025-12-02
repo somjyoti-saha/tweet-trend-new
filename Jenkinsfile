@@ -58,5 +58,15 @@ environment {
             }
         }
 
+
+        stage('Deploy on EKS'){
+            steps{
+                script{
+                    sh './deploy.sh'
+                }
+            }
+        }
+
+
     }
 }
