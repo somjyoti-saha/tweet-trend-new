@@ -1,0 +1,24 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: valaxy-rtp
+  namespace: valaxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:  valaxy-rtp
+  template:
+    metadata:
+      labels:
+        app:  valaxy-rtp
+    spec:
+      imagePullSecrets:
+      - name: ecr-cred
+      containers:
+      - name:  valaxy-rtp
+        image: 882961642803.dkr.ecr.ap-south-1.amazonaws.com/ttrend:14
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
