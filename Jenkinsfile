@@ -59,14 +59,6 @@ environment {
         }
 
 
-        stage('Deploy on EKS'){
-            steps{
-                script{
-                    sh './deploy.sh'
-                }
-            }
-        }
-
 
         stage('Deploy on EKS through Helm Charts'){
             steps{
