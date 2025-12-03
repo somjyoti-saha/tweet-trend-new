@@ -68,5 +68,13 @@ environment {
         }
 
 
+        stage('Deploy on EKS through Helm Charts'){
+            steps{
+                script{
+                    sh 'helm install ttrend-v2 ttrend01_helm-0.1.0.tgz'
+                }
+            }
+        }
+
     }
 }
